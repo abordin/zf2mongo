@@ -11,11 +11,20 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Document\User;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+
+        $user = new User();
+        $user->setName('Bulat S.');
+
+        $dm->persist($user);
+        $dm->flush();
+
         return new ViewModel();
     }
 }
